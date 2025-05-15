@@ -1,0 +1,46 @@
+{
+  "name": "Simple Web Dev (HTML/CSS/JS)",
+
+  // Use a versatile image that includes Node.js, Python, and common tools.
+  // You could use mcr.microsoft.com/devcontainers/javascript-node:0-18 for a more Node-focused image.
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+
+  // Forward the typical port used by the Live Server VS Code extension.
+  "forwardPorts": [5500],
+
+  // Configure port attributes for a better experience.
+  "portsAttributes": {
+    "5500": {
+      "label": "Live Preview", // Name that appears in Codespaces/VS Code UI
+      "onAutoForward": "openPreview" // Automatically opens a preview tab when the port is detected
+    }
+  },
+
+  // Customize VS Code settings and extensions within the container.
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // Optional: Auto-format on save using Prettier (if installed)
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "extensions": [
+        // Essential extension for live previewing HTML files
+        "ritwickdey.LiveServer",
+
+        // Recommended for code formatting
+        "esbenp.prettier-vscode",
+
+        // Optional: Add linters like ESLint if desired
+        // "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+
+  // Optional: Run commands after the container is created.
+  // Example: "postCreateCommand": "npm install -g http-server", // If you wanted a specific server globally
+  // "postCreateCommand": "",
+
+  // Optional: Specify the user the container runs as. 'vscode' is common for universal images.
+  // "remoteUser": "vscode"
+}
