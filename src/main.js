@@ -21,12 +21,17 @@ locarCamera.addEventListener("gpsupdate", (e) => {
     const places = [
       [41.68821298667827, -93.64990084991088, "AMY HOUSE"],
       [41.69004155050095, -93.64760589282847, "BACK NEIGHBOR HOUSE"],
-      [41.690089516871964, -93.64982951195867, "HORSE HOUSE"]
+      [41.690089516871964, -93.64982951195867, "HORSE HOUSE"],
     ];
+
+    // const places = [
+    //   [45.159963647387755, -93.21995870002962, "54"],
+    //   [45.15969474775075, -93.21880932611656, "55"],
+    // ];
 
     for (const place of places) {
       const entityOuter = document.createElement("a-entity");
-      entityOuter.setAttribute("position", "0 30 0");
+      entityOuter.setAttribute("position", "0 15 0");
       entityOuter.setAttribute("scale", "5 5 5");
       entityOuter.setAttribute("locar-entity-place", {
         latitude: place[0],
