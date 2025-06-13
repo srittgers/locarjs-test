@@ -1,0 +1,16 @@
+{
+  "name": "locarjs-test",
+  "version": "1.0.0",
+  "description": "A minimal locar.js project using Vite.",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "three": "^0.169.0",
+    "locar": "^0.0.12"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
+  }
+}

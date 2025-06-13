@@ -1,17 +1,23 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Web App</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Include WebXR polyfill if targeting devices without native support -->
-    <!-- <script src='https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.js'></script> -->
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<title>LocAR.js example 2</title>
+<link rel='stylesheet' type='text/css' href='../css/style.css' />
+<script type='module' src='src/main.js'></script>
 </head>
 <body>
-    <h1>Hello from the Dev Container!</h1>
-    <p>Your WebXR app starts here.</p>
+<main>
 
-    <script src="script.js"></script>
+<div id="gpsinput">
+<div><input id="fakeLat" placeholder="Fake Lat" /></div>
+<div><input id="fakeLon" placeholder="Fake Lon"/></div>
+<div><button id="setFakeLoc">Set Fake Location!</button></div>
+</div>
+
+<canvas id="glscene"></canvas>
+
+</main>
 </body>
 </html>
