@@ -1,39 +1,18 @@
-import * as THREE from 'three';
-import * as LocAR from 'locar';
-
-const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.001, 1000);
-
-const renderer = new THREE.WebGLRenderer({
-	canvas: document.getElementById('glscene')
-});
-renderer.setSize(window.innerWidth, window.innerHeight);
-//document.body.appendChild(renderer.domElement);
-
-const scene = new THREE.Scene();
-
-const locar = new LocAR.LocationBased(scene, camera);
-
-window.addEventListener("resize", e => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-});
-
-const cam = new LocAR.Webcam( { 
-    idealWidth: 1024, 
-    idealHeight: 768,
-    onVideoStarted: texture => {
-        scene.background = texture;        
-    }
-}, null);
+import 'aframe';
+import 'locar-aframe';
 
 let firstLocation = true;
+const locarCamera = document.querySelector('[locar-camera]');
+const scene = document.querySelector('a-scene');
 
-let deviceOrientationControls = new LocAR.DeviceOrientationControls(camera);
-
-locar.on("gpsupdate", (pos, distMoved) => {
-    if(firstLocation) {
-        alert(`Got the initial location: longitude ${pos.coords.longitude}, latitude ${pos.coords.latitude}`);
+locarCamera.addEventListener('gpsupdate', e => {
+    // Default location is lat 0, lon 0 so ignore gpsupdate if for this location
+    if(
+        e.detail.position.coords.latitude != 0 && 
+        e.detail.position.coords.longitude != 0 && 
+        firstLocation
+    ) {
+        alert(`Got the initial location: longitude ${e.detail.position.coords.longitude}, latitude ${e.detail.position.coords.latitude}`);
 
         const boxProps = [{
             latDis: 0.0005,
@@ -53,40 +32,32 @@ locar.on("gpsupdate", (pos, distMoved) => {
             colour: 0x00ff00
         }];
 
-        const geom = new THREE.BoxGeometry(10,10,10);
-
         for(const boxProp of boxProps) {
-            const mesh = new THREE.Mesh(
-                geom, 
-                new THREE.MeshBasicMaterial({color: boxProp.colour})
-            );
-        
-            console.log(`adding at ${pos.coords.longitude+boxProp.lonDis},${pos.coords.latitude+boxProp.latDis}`);    
-            locar.add(
-                mesh, 
-                pos.coords.longitude + boxProp.lonDis, 
-                pos.coords.latitude + boxProp.latDis
-            );
+            const box = document.createElement("a-box");
+            box.setAttribute("locar-entity-place", {
+                latitude: e.detail.position.coords.latitude + boxProp.latDis,
+                longitude: e.detail.position.coords.longitude + boxProp.lonDis,
+            });
+            box.setAttribute('material', {
+                color: boxProp.colour 
+            });
+            box.setAttribute('scale', {
+                x: 10,
+                y: 10,
+                z: 10
+            });
+            scene.appendChild(box);
         }
         
         firstLocation = false;
     }
 });
 
-locar.startGps();
-
-document.getElementById("setFakeLoc").addEventListener("click", e => {
-    alert("Using fake input GPS, not real GPS location");
-    locar.stopGps();
-    locar.fakeGps(
-        parseFloat(document.getElementById("fakeLon").value),
-        parseFloat(document.getElementById("fakeLat").value)
-    );
+document.querySelector('#setFakeLoc').addEventListener('click', e => {
+    const lat = document.getElementById('fakeLat').value;
+    const lon = document.getElementById('fakeLon').value;
+    locarCamera.setAttribute('locar-camera', {
+        simulateLatitude: parseFloat(lat),
+        simulateLongitude: parseFloat(lon)
+    });
 });
-
-renderer.setAnimationLoop(animate);
-
-function animate() {
-    deviceOrientationControls?.update();
-    renderer.render(scene, camera);
-}

@@ -7,8 +7,9 @@
     "build": "vite build"
   },
   "dependencies": {
-    "three": "^0.169.0",
-    "locar": "^0.0.12"
+    "aframe": "^1.7.1",
+    "locar-aframe": "^0.0.3",
+    "three": "^0.169.0"
   },
   "devDependencies": {
     "vite": "^5.4.8"
