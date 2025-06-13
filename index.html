@@ -6,18 +6,33 @@
   <body>
     <main>
       <a-scene id="glscene" locar-webcam>
+        <a-assets>
+          <a-asset-item
+            id="locationPin"
+            src="src/3d_location_pin.glb"
+          ></a-asset-item>
+        </a-assets>
         <a-camera
           look-controls="magicWindowTrackingEnabled: false"
           wasd-controls
-          locar-camera
+          locar-camera="positionMinAccuracy:6"
         ></a-camera>
         <a-entity
           position="0 30 0"
           scale="5 5 5"
           locar-entity-place="latitude: 41.690089516871964; longitude: -93.64982951195867;"
         >
-          <!--horse house-->
-          <a-box position="0 0 0" scale="1 1 1" color="#4CC3D9"></a-box>
+          <a-gltf-model
+            src="#locationPin"
+            position="0 0 0"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear;"
+          ></a-gltf-model>
+          <a-entity
+            text="value: HORSE HOUSE; align: center; color: red;"
+            position="0 13 0"
+            scale="100 100 100"
+            look-at="[locar-camera]"
+          ></a-entity>
         </a-entity>
       </a-scene>
     </main>

@@ -1,5 +1,7 @@
-import 'aframe';
-import 'locar-aframe';
+import "aframe";
+import "locar-aframe";
+import "troika-three-text";
+import 'aframe-look-at-component';
 
 // let firstLocation = true;
 // const locarCamera = document.querySelector('[locar-camera]');
@@ -8,8 +10,8 @@ import 'locar-aframe';
 // locarCamera.addEventListener('gpsupdate', e => {
 //     // Default location is lat 0, lon 0 so ignore gpsupdate if for this location
 //     if(
-//         e.detail.position.coords.latitude != 0 && 
-//         e.detail.position.coords.longitude != 0 && 
+//         e.detail.position.coords.latitude != 0 &&
+//         e.detail.position.coords.longitude != 0 &&
 //         firstLocation
 //     ) {
 //         alert(`Got the initial location: longitude ${e.detail.position.coords.longitude}, latitude ${e.detail.position.coords.latitude}`);
@@ -39,7 +41,7 @@ import 'locar-aframe';
 //                 longitude: e.detail.position.coords.longitude + boxProp.lonDis,
 //             });
 //             box.setAttribute('material', {
-//                 color: boxProp.colour 
+//                 color: boxProp.colour
 //             });
 //             box.setAttribute('scale', {
 //                 x: 10,
@@ -48,7 +50,7 @@ import 'locar-aframe';
 //             });
 //             scene.appendChild(box);
 //         }
-        
+
 //         firstLocation = false;
 //     }
 // });

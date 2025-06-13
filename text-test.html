@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame Text Test</title>
+    <script type="module" src="src/main.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Fake 3D text using shadow/outline effect -->
+      <a-entity position="0 2 -3">
+        <a-entity text="value: 3D TEXT; color: black; align: center;" position="0 0 -0.05" scale="1.1 1.1 1"></a-entity>
+        <a-entity text="value: 3D TEXT; color: yellow; align: center;" position="0 0 0"></a-entity>
+      </a-entity>
+      <a-camera></a-camera>
+    </a-scene>
+  </body>
+</html>
