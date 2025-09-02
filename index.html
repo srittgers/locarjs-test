@@ -2,9 +2,29 @@
 <html>
   <head>
     <script type="module" src="src/main.js"></script>
+    <style>
+      /* Simple overlay for controls */
+      .overlay {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 9999;
+        display: flex;
+        gap: 8px;
+      }
+      .overlay button {
+        padding: 8px 12px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <main>
+      <div class="overlay">
+        <button id="btnSavePin">Save current location</button>
+        <button id="btnClearPins">Clear saved pins</button>
+      </div>
       <a-scene id="glscene" locar-webcam>
         <a-assets>
           <a-asset-item
