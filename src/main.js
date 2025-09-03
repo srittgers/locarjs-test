@@ -2,10 +2,14 @@ import "aframe";
 import "locar-aframe";
 import "troika-three-text";
 import "aframe-look-at-component";
+import locationPinUrl from "./3d_location_pin.glb?url";
 
 let firstLocation = true;
 const locarCamera = document.querySelector("[locar-camera]");
 const scene = document.querySelector("a-scene");
+// Wire up asset URLs via Vite so they work in build and GH Pages
+const asset = document.getElementById("locationPin");
+if (asset && locationPinUrl) asset.setAttribute("src", locationPinUrl);
 
 // Storage helpers
 const STORAGE_KEY = "locar.savedPins.v1";

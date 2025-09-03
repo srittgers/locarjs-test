@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "A minimal locar.js project using Vite.",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build"
+  "dev": "vite dev",
+  "build": "vite build",
+  "preview": "vite preview",
+  "predeploy": "vite build --base=/${npm_package_name}/",
+  "deploy": "gh-pages -d dist --dotfiles"
   },
   "dependencies": {
     "aframe": "^1.7.1",
@@ -14,6 +17,7 @@
     "troika-three-text": "^0.52.4"
   },
   "devDependencies": {
-    "vite": "^5.4.8"
+  "gh-pages": "^6.1.1",
+  "vite": "^5.4.8"
   }
 }
