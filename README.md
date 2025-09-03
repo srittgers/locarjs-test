@@ -1,8 +1,36 @@
-This app allows the user to set pins and then see a floating red pin with a label.  (it uses local storage to save the pins)
+This app allows the user to set pins and then see a floating red pin with a label. (It uses local storage to save the pins.)
 
-It uses locar.js which works on iphones too (not using webxr)
+It uses locar.js, which works on iPhones too (not using WebXR).
 
-To run the app:
-1. maybe do "npm install" (not sure if this happens automatically when project loads)
-2. "npm run dev" (this calls "vite dev")
-(there is also "npm run build" which calls "vite build" but I think maybe "run dev" does that?)
+## Development
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   This uses Vite for local development.
+
+## Build
+
+To build the app for production:
+
+```bash
+npm run build
+```
+
+The output will be in the `dist` folder.
+
+## Deploy to GitHub Pages
+
+Deployment is automated using GitHub Actions:
+
+- Push your changes to the `main` branch.
+- The workflow in `.github/workflows/deploy.yml` will build and deploy the site to GitHub Pages automatically.
+
+No manual deployment steps are needed.
