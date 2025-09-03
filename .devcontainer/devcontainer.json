@@ -3,7 +3,7 @@
 
   // Use a versatile image that includes Node.js, Python, and common tools.
   // You could use mcr.microsoft.com/devcontainers/javascript-node:0-18 for a more Node-focused image.
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
 
   // Forward the typical port used by the Live Server VS Code extension.
   "forwardPorts": [5500],
