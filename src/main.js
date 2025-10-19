@@ -3,6 +3,7 @@ import "locar-aframe";
 import "troika-three-text";
 import "aframe-look-at-component";
 import locationPinUrl from "./3d_location_pin.glb?url";
+import { abs } from "three/tsl";
 
 let firstLocation = true;
 const locarCamera = document.querySelector("[locar-camera]");
@@ -14,6 +15,7 @@ if (asset && locationPinUrl) asset.setAttribute("src", locationPinUrl);
 // Storage helpers
 const STORAGE_KEY = "locar.savedPins.v1";
 let currentCoords = null;
+let currentElevation = 0; // User's current elevation above sea level
 
 function loadSavedPins() {
   try {
@@ -28,9 +30,19 @@ function saveSavedPins(pins) {
 }
 
 function createPinEntity(lat, lon, label, options = {}) {
+  // Calculate elevation: if absoluteElevation is provided, use it relative to current elevation
+  // Otherwise default to 15 meters above current position
+  let relativeElevation = 15; // default
+  if (options.absoluteElevation !== undefined) {
+    relativeElevation = options.absoluteElevation - currentElevation;
+  }
+
+  // Use custom scale if provided, otherwise default to 5
+  const scale = options.scale !== undefined ? options.scale : 5;
+
   const entityOuter = document.createElement("a-entity");
-  entityOuter.setAttribute("position", "0 15 0");
-  entityOuter.setAttribute("scale", "5 5 5");
+  entityOuter.setAttribute("position", `0 ${relativeElevation} 0`);
+  entityOuter.setAttribute("scale", `${scale} ${scale} ${scale}`);
   entityOuter.setAttribute("locar-entity-place", {
     latitude: lat,
     longitude: lon,
@@ -51,7 +63,7 @@ function createPinEntity(lat, lon, label, options = {}) {
     align: "center",
     color: options.color || "red",
   });
-  labelEl.setAttribute("position", "0 12 0");
+  labelEl.setAttribute("position", "0 12 0"); // position 12 meters above the pin (it is a child of entityOuter which is already elevated)
   labelEl.setAttribute("scale", "50 50 50");
   labelEl.setAttribute("look-at", "[locar-camera]");
 
@@ -72,8 +84,12 @@ function renderSavedPins() {
 }
 
 locarCamera.addEventListener("gpsupdate", (e) => {
-  const { latitude, longitude } = e.detail.position.coords;
+  const { latitude, longitude, altitude } = e.detail.position.coords;
   currentCoords = { lat: latitude, lon: longitude };
+  // Update current elevation if available (altitude is in meters above sea level)
+  if (altitude !== null && altitude !== undefined) {
+    currentElevation = altitude;
+  }
   // Default location is lat 0, lon 0 so ignore gpsupdate if for this location
   if (latitude != 0 && longitude != 0 && firstLocation) {
     alert(
@@ -90,6 +106,11 @@ locarCamera.addEventListener("gpsupdate", (e) => {
     for (const place of places) {
       createPinEntity(place[0], place[1], place[2], { color: "red" });
     }
+
+    createPinEntity(41.72328, -93.70955, "flight swa3908 over saylorville", {
+      absoluteElevation: 10000,
+      scale: 100,
+    });
 
     // Render any previously saved pins
     renderSavedPins();
